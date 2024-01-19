@@ -163,3 +163,4 @@ data/*.zarr
 data/*.graphml
 data/*.sqlite
 data/*meta.json
+data/
