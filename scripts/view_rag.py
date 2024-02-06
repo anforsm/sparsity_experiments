@@ -56,9 +56,11 @@ def add_rag_from_file(f):
     rag_provider = SQLiteGraphDataBase(
             Path(f),
             mode="r",
-            position_attributes=["position_z", "position_y", "position_x"],
+            #position_attributes=["position_z", "position_y", "position_x"],
+            position_attributes=["center_z", "center_y", "center_x"],
             edge_attrs={"merge_score": float, "agglomerated": bool},
-            edges_table="edges_"+merge_function)
+            edges_table="edges_"+merge_function
+    )
     rag = rag_provider.read_graph()
 
     nodes = []
@@ -80,18 +82,21 @@ def add_rag_from_file(f):
 #                )
 
     i = 0
+    print(len(rag.edges()), "edges")
     for u, v, data in rag.edges(data=True):
         i += 1
-        if i > 1_000:
+        if i > 10_000:
             break
         u = rag.nodes[u]
         v = rag.nodes[v]
 
-        if 'position_x' not in u or 'position_x' not in v:
-           continue
+        #if 'position_x' not in u or 'position_x' not in v:
+        #   continue
 
-        pos_u = [u['position_z'], u['position_y'], u['position_x']]
-        pos_v = [v['position_z'], v['position_y'], v['position_x']]
+        #pos_u = [u['position_z'], u['position_y'], u['position_x']]
+        #pos_v = [v['position_z'], v['position_y'], v['position_x']]
+        pos_u = [u['center_z'], u['center_y'], u['center_x']]
+        pos_v = [v['center_z'], v['center_y'], v['center_x']]
 
         pos_u = to_ng_coords(pos_u)
         pos_v = to_ng_coords(pos_v)

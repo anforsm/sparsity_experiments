@@ -164,3 +164,4 @@ data/*.graphml
 data/*.sqlite
 data/*meta.json
 data/
+daisy_logs/

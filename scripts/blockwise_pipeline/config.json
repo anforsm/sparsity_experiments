@@ -1,0 +1,11 @@
+{
+  "input_shape": [52, 308, 308],
+  "output_shape": [28, 216, 216],
+  "shape_increase": [16, 96, 96],
+  "outputs": {
+    "test": {
+      "out_dims": 3,
+      "out_dtype": "uint8"
+    }
+  }
+}
