@@ -154,11 +154,11 @@ if __name__ == "__main__":
         fragments_file="../../data/oblique.zarr",
         fragments_dataset="frags",
         #thresholds=[0.06, 0.1, 0.3, 0.5, 0.7],
-        thresholds=[0.3],
-        #thresholds=[0, 0.02, 0.06, 0.1, 0.2, 0.3, 0.5, 0.7, 0.98],
+        #thresholds=[0.3],
+        thresholds=[0.2, 0.3, 0.4, 0.5],
         #thresholds=[0.04, 0.042, 0.044, 0.046, 0.05, 0.052, 0.056],
-        num_workers=1,
-        merge_function="hist_quant_75"
+        num_workers=30,
+        merge_function="mean"
         #thresholds=[0.2]
                 #block_size = [28*50, 216, 216]
     )

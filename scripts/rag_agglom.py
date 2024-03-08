@@ -166,13 +166,21 @@ def agglomerate(
 
 
 if __name__ == "__main__":
+    pred_file = "../data/oblique.zarr"
+    pred_dataset = "test_200000_from_raw/s0"
+    frags_file = "../data/oblique.zarr"
+    frags_dataset = "repost/test_200000_from_raw/s0_FalseNorm_FalseBoundaryMask50_15MinSeedDist_0FragFilter/fragments"
+    rag_path = "../data/oblique.zarr/repost/test_200000_from_raw/s0_FalseNorm_FalseBoundaryMask50_15MinSeedDist_0FragFilter/rag.db"
+    #rag_path = "../data/blockwise.zarr/repost/"
+    merge_fn = "mean"
 
-    pred_file = sys.argv[1]
-    pred_dataset = sys.argv[2]
-    frags_file = sys.argv[3]
-    frags_dataset = sys.argv[4]
-    rag_path = sys.argv[5]
-    merge_fn = sys.argv[6]
+
+    #pred_file = sys.argv[1]
+    #pred_dataset = sys.argv[2]
+    #frags_file = sys.argv[3]
+    #frags_dataset = sys.argv[4]
+    #rag_path = sys.argv[5]
+    #merge_fn = sys.argv[6]
 
     pred = open_ds(pred_file,pred_dataset)
     frags = open_ds(frags_file,frags_dataset)

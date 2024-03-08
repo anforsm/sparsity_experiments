@@ -284,9 +284,12 @@ def watershed(
 
 if __name__ == "__main__":
 
-    pred_file = sys.argv[1]
-    pred_dataset = sys.argv[2]
-    out_file = sys.argv[3]
+    #pred_file = sys.argv[1]
+    #pred_dataset = sys.argv[2]
+    #out_file = sys.argv[3]
+    pred_file = "../data/oblique.zarr"
+    pred_dataset = "test_200000_from_raw/s0"
+    out_file = "../data/oblique.zarr"
    
     pred = open_ds(pred_file,pred_dataset)
     vs = pred.voxel_size
@@ -302,7 +305,8 @@ if __name__ == "__main__":
         norm = False
         min_seed = 15
         bg_mask = False
-        mask_thresh = 0.4
+        #mask_thresh = 0.4
+        mask_thresh = 0.5
         filter_val = 0.0
     
     frag_ds, rag_path = watershed(

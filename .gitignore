@@ -165,3 +165,6 @@ data/*.sqlite
 data/*meta.json
 data/
 daisy_logs/
+oblique.zarr/*
+
+database.ipynb

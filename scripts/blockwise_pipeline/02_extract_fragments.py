@@ -10,7 +10,7 @@ from utils import neighborhood
 from pathlib import Path
 
 USE_PSQL = True
-db_name = "anton_test5"
+db_name = "anton_test6"
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -96,7 +96,7 @@ def extract_fragments(
     read_roi: Roi = write_roi
 
     write_roi: Roi = write_roi * voxel_size
-    read_roi: Roi = read_roi * voxel_size
+    read_roi: Roi = (read_roi * voxel_size).grow(context, context)
 
     block_directory: str = os.path.join(fragments_file, "block_nodes")
 
@@ -141,16 +141,17 @@ def extract_fragments(
         )
     
     def worker(block):
-        rag_provider = graphs.PgSQLGraphDatabase(
-            db_name=db_name,
-            db_host="khlabgpu.clm.utexas.edu",
-            db_user="anton",
-            db_password="password",
-            db_port="5433",
-            position_attributes=["center_z", "center_y", "center_x"],
-            edge_attrs={"merge_score": float, "agglomerated": bool},
-            mode="r+"
-        )
+        if USE_PSQL:
+            rag_provider = graphs.PgSQLGraphDatabase(
+                db_name=db_name,
+                db_host="khlabgpu.clm.utexas.edu",
+                db_user="anton",
+                db_password="password",
+                db_port="5433",
+                position_attributes=["center_z", "center_y", "center_x"],
+                edge_attrs={"merge_score": float, "agglomerated": bool},
+                mode="r+"
+            )
 
         watershed_in_block(
             affs=affs_ds,
@@ -164,6 +165,7 @@ def extract_fragments(
             epsilon_agglomerate=epsilon_agglomerate,
             filter_fragments=filter_fragments,
             replace_sections=replace_sections,
+            min_seed_distance=15,
         )
 
     logging.info("RAG db opened")
@@ -215,6 +217,7 @@ if __name__ == "__main__":
         context=context,
         num_workers=100,
         fragments_in_xy=True,
+        filter_fragments=0.0,
         #epsilon_agglomerate=0.01,
         )
     pass

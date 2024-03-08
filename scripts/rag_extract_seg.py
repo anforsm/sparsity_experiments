@@ -8,9 +8,12 @@ from funlib.segment.arrays import replace_values
 
 if __name__ == "__main__":
 
-    frags_file = sys.argv[1]
-    frags_dataset = sys.argv[2]
-    lut_file = sys.argv[3]
+    #frags_file = sys.argv[1]
+    #frags_dataset = sys.argv[2]
+    frags_file = "../data/oblique.zarr"
+    frags_dataset = "repost/test_200000_from_raw/s0_FalseNorm_FalseBoundaryMask50_15MinSeedDist_0FragFilter/fragments"
+    #lut_file = sys.argv[3]
+    lut_file = "../data/oblique.zarr/repost/test_200000_from_raw/s0_FalseNorm_FalseBoundaryMask50_15MinSeedDist_0FragFilter/luts/mean/thresh_20.npy"
     
     out_file = frags_file
     frag_str = frags_dataset.split('/')[1]

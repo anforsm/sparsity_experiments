@@ -8,8 +8,8 @@ import time
 from funlib.segment.graphs.impl import connected_components
 from pathlib import Path
 
-USE_PSQL = False
-db_name = "anton_test5"
+USE_PSQL = True 
+db_name = "anton_test6"
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -166,5 +166,6 @@ if __name__ == "__main__":
         fragments_file="../../data/oblique.zarr",
         fragments_dataset="frags",
         thresholds_minmax=[0, 1],
-        thresholds_step=0.02
+        thresholds_step=0.02,
+        merge_function="mean"
     )

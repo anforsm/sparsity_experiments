@@ -9,8 +9,8 @@ from pathlib import Path
 
 logging.getLogger().setLevel(logging.INFO)
 
-USE_PSQL = False
-db_name = "anton_test5"
+USE_PSQL = True 
+db_name = "anton_test6"
 
 
 def agglomerate(
@@ -104,20 +104,19 @@ def agglomerate(
             #nodes_collection="hglom_nodes",
             #edges_collection=f"hglom_edges_{merge_function}",
         )
-    else:
-        pass
 
     def worker(block):
-        rag_provider = graphs.PgSQLGraphDatabase(
-            db_name=db_name,
-            db_host="khlabgpu.clm.utexas.edu",
-            db_user="anton",
-            db_password="password",
-            db_port="5433",
-            position_attributes=["center_z", "center_y", "center_x"],
-            edge_attrs={"merge_score": float, "agglomerated": bool},
-            mode="r+"
-        )
+        if USE_PSQL:
+            rag_provider = graphs.PgSQLGraphDatabase(
+                db_name=db_name,
+                db_host="khlabgpu.clm.utexas.edu",
+                db_user="anton",
+                db_password="password",
+                db_port="5433",
+                position_attributes=["center_z", "center_y", "center_x"],
+                edge_attrs={"merge_score": float, "agglomerated": bool},
+                mode="r+"
+            )
 
         agglomerate_in_block(
             affs=affs,
@@ -170,5 +169,6 @@ if __name__ == "__main__":
         fragments_file="../../data/oblique.zarr",
         fragments_dataset="frags",
         context=context,
-        num_workers=10,
+        num_workers=30,
+        merge_function="mean"
     )
